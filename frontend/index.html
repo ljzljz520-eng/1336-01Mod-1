@@ -31,6 +31,7 @@
                 <li class="nav__item"><a href="#" class="nav__link" data-modal="recommend">个性化推荐</a></li>
                 <li class="nav__item"><a href="#" class="nav__link" data-modal="service">智能客服</a></li>
                 <li class="nav__item"><a href="#" class="nav__link" data-modal="analysis">数据分析</a></li>
+                <li class="nav__item"><a href="#cases" class="nav__link" data-scroll="cases">客户案例</a></li>
             </ul>
         </div>
     </nav>
@@ -154,6 +155,198 @@
 
         </div>
     </main>
+
+    <!-- ========== 5. 客户案例检索模块 ========== -->
+    <section id="cases" class="cases">
+        <div class="cases__container">
+            <div class="cases__header">
+                <h2 class="cases__title">客户案例</h2>
+                <p class="cases__subtitle">已服务 <strong>500+</strong> 家文旅企业，看看他们的智慧化转型之路</p>
+            </div>
+
+            <!-- 筛选器 -->
+            <div class="cases__filters">
+                <div class="filter-group">
+                    <label class="filter-group__label" for="filter-industry">行业</label>
+                    <select id="filter-industry" class="filter-group__select">
+                        <option value="">全部行业</option>
+                        <option value="景区">景区/主题乐园</option>
+                        <option value="酒店">酒店/民宿</option>
+                        <option value="旅行社">旅行社/OTA</option>
+                        <option value="文旅局">文旅局/政府</option>
+                        <option value="博物馆">博物馆/展馆</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label class="filter-group__label" for="filter-city">城市</label>
+                    <select id="filter-city" class="filter-group__select">
+                        <option value="">全部城市</option>
+                        <option value="北京">北京</option>
+                        <option value="上海">上海</option>
+                        <option value="杭州">杭州</option>
+                        <option value="成都">成都</option>
+                        <option value="西安">西安</option>
+                        <option value="三亚">三亚</option>
+                        <option value="丽江">丽江</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label class="filter-group__label" for="filter-stage">服务阶段</label>
+                    <select id="filter-stage" class="filter-group__select">
+                        <option value="">全部阶段</option>
+                        <option value="规划">前期规划</option>
+                        <option value="实施">系统实施</option>
+                        <option value="上线">已上线运营</option>
+                        <option value="优化">持续优化</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label class="filter-group__label" for="filter-budget">项目预算</label>
+                    <select id="filter-budget" class="filter-group__select">
+                        <option value="">全部预算</option>
+                        <option value="10-50">10万 - 50万</option>
+                        <option value="50-100">50万 - 100万</option>
+                        <option value="100-300">100万 - 300万</option>
+                        <option value="300+">300万以上</option>
+                    </select>
+                </div>
+
+                <button id="filter-reset" class="filter-reset-btn">重置筛选</button>
+            </div>
+
+            <!-- 案例列表 -->
+            <div id="cases-list" class="cases__list">
+                <!-- 案例卡片由JS动态生成 -->
+            </div>
+
+            <div id="cases-empty" class="cases__empty" style="display:none;">
+                <div class="cases__empty-icon">🔍</div>
+                <p class="cases__empty-text">没有找到符合条件的案例，试试调整筛选条件？</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== 6. 预约回呼浮动按钮 ========== -->
+    <button id="callback-fab" class="callback-fab" title="预约回呼">
+        <span class="callback-fab__icon">📞</span>
+        <span class="callback-fab__text">预约回呼</span>
+    </button>
+
+    <!-- ========== 7. 预约回呼弹窗 ========== -->
+    <div id="callback-modal" class="callback-modal">
+        <div class="callback-modal__mask"></div>
+        <div class="callback-modal__content">
+            <button class="callback-modal__close" aria-label="关闭">×</button>
+            <h2 class="callback-modal__title">📞 预约销售回呼</h2>
+            <p class="callback-modal__subtitle">留下您的联系方式，专属顾问将在 30 分钟内与您联系</p>
+
+            <form id="callback-form" class="callback-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-group__label" for="cb-name">姓名 <span class="required">*</span></label>
+                        <input type="text" id="cb-name" name="name" class="form-group__input" placeholder="请输入您的姓名" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-group__label" for="cb-phone">手机号 <span class="required">*</span></label>
+                        <input type="tel" id="cb-phone" name="phone" class="form-group__input" placeholder="请输入手机号码" pattern="^1[3-9]\d{9}$" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-group__label" for="cb-company">企业名称</label>
+                    <input type="text" id="cb-company" name="company" class="form-group__input" placeholder="请输入企业名称（选填）">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-group__label">感兴趣的套餐</label>
+                    <div class="package-options">
+                        <label class="package-option">
+                            <input type="radio" name="package" value="基础版（智能导览+客服）" checked>
+                            <span class="package-option__card">
+                                <span class="package-option__name">基础版</span>
+                                <span class="package-option__price">¥ 9.8万 起</span>
+                                <span class="package-option__desc">智能导览 + 智能客服</span>
+                            </span>
+                        </label>
+                        <label class="package-option">
+                            <input type="radio" name="package" value="专业版（全模块）">
+                            <span class="package-option__card">
+                                <span class="package-option__name">专业版</span>
+                                <span class="package-option__price">¥ 29.8万 起</span>
+                                <span class="package-option__desc">全模块 + 数据分析</span>
+                            </span>
+                        </label>
+                        <label class="package-option">
+                            <input type="radio" name="package" value="企业定制版">
+                            <span class="package-option__card">
+                                <span class="package-option__name">企业定制版</span>
+                                <span class="package-option__price">面议</span>
+                                <span class="package-option__desc">深度定制 + 私有化部署</span>
+                            </span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-group__label" for="cb-message">咨询内容</label>
+                    <textarea id="cb-message" name="message" class="form-group__textarea" rows="3" placeholder="简单描述您的需求，如：景区规模、预计上线时间等..."></textarea>
+                </div>
+
+                <!-- 销售需要的追踪字段（隐藏） -->
+                <input type="hidden" id="cb-source-page" name="sourcePage" value="">
+                <input type="hidden" id="cb-source-case" name="sourceCase" value="">
+                <input type="hidden" id="cb-submit-time" name="submitTime" value="">
+
+                <button type="submit" id="cb-submit" class="callback-form__submit">
+                    <span class="btn-text">立即预约回呼</span>
+                </button>
+
+                <p class="callback-form__privacy">🔒 我们承诺严格保护您的信息，仅用于业务沟通</p>
+            </form>
+
+            <!-- 排队中状态 -->
+            <div id="cb-status-queuing" class="callback-status" style="display:none;">
+                <div class="callback-status__spinner"></div>
+                <h3 class="callback-status__title callback-status__title--queuing">正在为您分配专属顾问...</h3>
+                <p class="callback-status__desc">预计等待 10-30 秒，请不要关闭窗口</p>
+                <div class="callback-status__queue-info">
+                    <span>当前排队：</span><strong id="queue-position">3</strong><span> 人</span>
+                </div>
+            </div>
+
+            <!-- 成功状态 -->
+            <div id="cb-status-success" class="callback-status" style="display:none;">
+                <div class="callback-status__icon callback-status__icon--success">✓</div>
+                <h3 class="callback-status__title callback-status__title--success">预约成功！</h3>
+                <p class="callback-status__desc">您的专属顾问 <strong id="success-advisor">李经理</strong> 将在 <strong>30 分钟内</strong> 致电您</p>
+                <div class="callback-status__advisor-card">
+                    <div class="advisor-avatar">👨‍💼</div>
+                    <div class="advisor-info">
+                        <div class="advisor-name" id="advisor-name-display">李经理 · 高级解决方案顾问</div>
+                        <div class="advisor-tip">擅长：景区智慧化 / 文旅运营 / ROI分析</div>
+                    </div>
+                </div>
+                <button class="callback-status__close-btn" onclick="closeCallbackModal()">我知道了</button>
+            </div>
+
+            <!-- 失败状态 -->
+            <div id="cb-status-error" class="callback-status" style="display:none;">
+                <div class="callback-status__icon callback-status__icon--error">✕</div>
+                <h3 class="callback-status__title callback-status__title--error">提交失败</h3>
+                <p class="callback-status__desc" id="error-desc">网络异常，请稍后重试</p>
+                <div class="callback-status__actions">
+                    <button class="callback-status__retry-btn" onclick="retryCallback()">重新提交</button>
+                    <button class="callback-status__close-btn callback-status__close-btn--secondary" onclick="closeCallbackModal()">稍后再说</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== 8. Toast 提示 ========== -->
+    <div id="toast-container" class="toast-container"></div>
 
     <div class="modal">
         <div class="modal__mask"></div>
@@ -324,6 +517,289 @@
                 }
             });
         }
+
+        document.querySelectorAll('.nav__link[data-scroll]').forEach(function (link) {
+            link.addEventListener('click', function (e) {
+                var targetId = this.getAttribute('data-scroll');
+                var target = document.getElementById(targetId);
+                if (target) {
+                    e.preventDefault();
+                    if (navList) navList.classList.remove('nav__list--active');
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        function showToast(message, type) {
+            type = type || 'info';
+            var container = document.getElementById('toast-container');
+            if (!container) return;
+            var toast = document.createElement('div');
+            toast.className = 'toast toast--' + type;
+            var iconMap = { success: '✅', error: '❌', info: 'ℹ️', warning: '⚠️' };
+            toast.innerHTML = '<span class="toast__icon">' + (iconMap[type] || 'ℹ️') + '</span><span class="toast__message">' + message + '</span>';
+            container.appendChild(toast);
+            requestAnimationFrame(function () { toast.classList.add('toast--show'); });
+            setTimeout(function () {
+                toast.classList.remove('toast--show');
+                setTimeout(function () { toast.remove(); }, 300);
+            }, 3000);
+        }
+
+        var CASES = [
+            { id: 1, name: '故宫博物院智慧导览项目', industry: '博物馆', city: '北京', stage: '优化', budget: '300+', icon: '🏛️', desc: '上线AR实景导航+AI多语言讲解，覆盖800+景点，游客停留时间提升45%，年服务人次超1900万。', tags: ['AR导航', '多语言', '客流分析'], result: '二次消费 +32%' },
+            { id: 2, name: '西湖风景区智慧文旅平台', industry: '景区', city: '杭州', stage: '上线', budget: '100-300', icon: '🌊', desc: '整合景区12个子系统，实现一码通行、智能停车、客流预测，黄金周拥堵预警准确率达96%。', tags: ['一码通行', '客流预测', '智能停车'], result: '投诉率 -58%' },
+            { id: 3, name: '三亚亚龙湾酒店集团数字化', industry: '酒店', city: '三亚', stage: '实施', budget: '50-100', icon: '🏝️', desc: '旗下8家酒店部署智能客服+个性化推荐系统，覆盖入住全流程，办理入住时间缩短80%。', tags: ['智能客服', '推荐系统', '会员画像'], result: 'RevPAR +27%' },
+            { id: 4, name: '陕西省文旅厅全域旅游大数据', industry: '文旅局', city: '西安', stage: '上线', budget: '300+', icon: '🏺', desc: '建设省级文旅大数据中心，打通景区、酒店、交通、消费数据，辅助全省文旅决策。', tags: ['数据中台', '舆情监测', '决策支持'], result: '全省文旅收入 +18%' },
+            { id: 5, name: '上海迪士尼周边民宿联盟', industry: '酒店', city: '上海', stage: '上线', budget: '10-50', icon: '🏡', desc: '120家精品民宿联合部署智能预订+客源推荐，淡季入住率从35%提升至62%。', tags: ['智能预订', '私域运营', '分销系统'], result: '入住率 +77%' },
+            { id: 6, name: '成都大熊猫繁育研究基地', industry: '景区', city: '成都', stage: '优化', budget: '50-100', icon: '🐼', desc: '部署AI语音导览+熊猫直播互动+文创推荐，文创产品收入同比增长210%。', tags: ['AI讲解', '直播互动', '文创电商'], result: '文创收入 +210%' },
+            { id: 7, name: '携程旗下定制游子公司', industry: '旅行社', city: '上海', stage: '规划', budget: '10-50', icon: '✈️', desc: '基于AI的智能行程规划引擎，输入偏好即可生成个性化方案，定制师人效提升3倍。', tags: ['AI行程规划', '智能报价', '资源匹配'], result: '人效 +200%' },
+            { id: 8, name: '丽江古城智慧化升级项目', industry: '景区', city: '丽江', stage: '实施', budget: '100-300', icon: '🏘️', desc: '千年古城5G+IoT全覆盖，实现人流热力图、消防预警、商户管理，入选文旅部示范案例。', tags: ['5G+IoT', '热力图', '智慧消防'], result: '安全事件 -90%' },
+            { id: 9, name: '秦始皇兵马俑博物馆二期', industry: '博物馆', city: '西安', stage: '规划', budget: '100-300', icon: '🗿', desc: '数字孪生+VR沉浸体验，让游客"走进"大秦帝国，预计承载量提升50%。', tags: ['数字孪生', 'VR体验', '预约调度'], result: '承载量 +50%' },
+            { id: 10, name: '杭州青芝坞文旅特色街区', industry: '文旅局', city: '杭州', stage: '上线', budget: '10-50', icon: '🌸', desc: '街区商户数字化+电子导览+夜游灯光秀联动，周末客流翻番，成为网红打卡地。', tags: ['街区数字化', '夜游经济', '商户SaaS'], result: '客流 +120%' },
+            { id: 11, name: '同程旅行智能客服中台', industry: '旅行社', city: '北京', stage: '优化', budget: '300+', icon: '🎫', desc: '全渠道统一智能客服，85%问题AI自助解决，人工客服满意度提升至4.9/5分。', tags: ['客服中台', '全渠道', 'AI质检'], result: '客服成本 -40%' },
+            { id: 12, name: '北京环球影城周边餐饮联盟', industry: '景区', city: '北京', stage: '实施', budget: '10-50', icon: '🎢', desc: '景区客流溢出引流+智能排队+外卖联动，合作商户平均翻台率提升60%。', tags: ['客流引流', '智能排号', '联动营销'], result: '翻台率 +60%' }
+        ];
+
+        var filterEls = {
+            industry: document.getElementById('filter-industry'),
+            city: document.getElementById('filter-city'),
+            stage: document.getElementById('filter-stage'),
+            budget: document.getElementById('filter-budget')
+        };
+        var casesListEl = document.getElementById('cases-list');
+        var casesEmptyEl = document.getElementById('cases-empty');
+        var filterResetBtn = document.getElementById('filter-reset');
+
+        function renderCases(list) {
+            if (!casesListEl || !casesEmptyEl) return;
+            if (!list || list.length === 0) {
+                casesListEl.innerHTML = '';
+                casesEmptyEl.style.display = 'flex';
+                return;
+            }
+            casesEmptyEl.style.display = 'none';
+            var stageColorMap = { '规划': 'stage--planning', '实施': 'stage--implementing', '上线': 'stage--online', '优化': 'stage--optimizing' };
+            var stageLabelMap = { '规划': '📋 前期规划', '实施': '⚙️ 系统实施', '上线': '🚀 已上线运营', '优化': '📈 持续优化' };
+            casesListEl.innerHTML = list.map(function (c) {
+                return '\
+                <article class="case-card" data-case-id="' + c.id + '">\
+                    <div class="case-card__header">\
+                        <span class="case-card__icon">' + c.icon + '</span>\
+                        <span class="case-card__stage ' + (stageColorMap[c.stage] || '') + '">' + (stageLabelMap[c.stage] || c.stage) + '</span>\
+                    </div>\
+                    <h3 class="case-card__name">' + c.name + '</h3>\
+                    <div class="case-card__meta">\
+                        <span>' + c.industry + '</span><span class="dot">·</span>\
+                        <span>' + c.city + '</span><span class="dot">·</span>\
+                        <span>预算 ' + c.budget + '万</span>\
+                    </div>\
+                    <p class="case-card__desc">' + c.desc + '</p>\
+                    <div class="case-card__tags">' + c.tags.map(function (t) { return '<span class="tag">' + t + '</span>'; }).join('') + '</div>\
+                    <div class="case-card__footer">\
+                        <span class="case-card__result">' + c.result + '</span>\
+                        <button class="case-card__consult" data-case-name="' + c.name + '" data-case-id="' + c.id + '">参考此方案 →</button>\
+                    </div>\
+                </article>';
+            }).join('');
+
+            casesListEl.querySelectorAll('.case-card__consult').forEach(function (btn) {
+                btn.addEventListener('click', function () {
+                    var caseName = this.getAttribute('data-case-name');
+                    openCallbackModal({ sourceCase: caseName, sourcePage: '客户案例页（案例：' + caseName + '）' });
+                });
+            });
+        }
+
+        function applyFilters() {
+            var industry = filterEls.industry ? filterEls.industry.value : '';
+            var city = filterEls.city ? filterEls.city.value : '';
+            var stage = filterEls.stage ? filterEls.stage.value : '';
+            var budget = filterEls.budget ? filterEls.budget.value : '';
+            var filtered = CASES.filter(function (c) {
+                return (!industry || c.industry === industry)
+                    && (!city || c.city === city)
+                    && (!stage || c.stage === stage)
+                    && (!budget || c.budget === budget);
+            });
+            renderCases(filtered);
+            showToast('找到 ' + filtered.length + ' 个匹配案例', filtered.length > 0 ? 'info' : 'warning');
+        }
+
+        Object.keys(filterEls).forEach(function (key) {
+            if (filterEls[key]) filterEls[key].addEventListener('change', applyFilters);
+        });
+        if (filterResetBtn) {
+            filterResetBtn.addEventListener('click', function () {
+                Object.keys(filterEls).forEach(function (key) { if (filterEls[key]) filterEls[key].value = ''; });
+                renderCases(CASES);
+                showToast('筛选条件已重置', 'info');
+            });
+        }
+        renderCases(CASES);
+
+        var callbackFab = document.getElementById('callback-fab');
+        var callbackModalEl = document.getElementById('callback-modal');
+        var callbackModalClose = document.querySelector('.callback-modal__close');
+        var callbackForm = document.getElementById('callback-form');
+        var cbFormEl = document.getElementById('callback-form');
+        var cbQueuingEl = document.getElementById('cb-status-queuing');
+        var cbSuccessEl = document.getElementById('cb-status-success');
+        var cbErrorEl = document.getElementById('cb-status-error');
+
+        var ADVISORS = [
+            { name: '李经理', title: '高级解决方案顾问', skill: '景区智慧化 / 文旅运营 / ROI分析', avatar: '👨‍💼' },
+            { name: '王总监', title: '文旅行业首席顾问', skill: '政府项目 / 全域旅游 / 政策咨询', avatar: '👩‍💼' },
+            { name: '张工', title: '技术方案架构师', skill: '系统集成 / 5G+IoT / 数据中台', avatar: '🧑‍💻' },
+            { name: '陈顾问', title: '酒店数字化专家', skill: '酒店管理 / 私域运营 / 收益管理', avatar: '👨‍🎨' }
+        ];
+
+        function resetCallbackStatus() {
+            if (cbFormEl) cbFormEl.style.display = 'block';
+            if (cbQueuingEl) cbQueuingEl.style.display = 'none';
+            if (cbSuccessEl) cbSuccessEl.style.display = 'none';
+            if (cbErrorEl) cbErrorEl.style.display = 'none';
+        }
+
+        function openCallbackModal(prefill) {
+            if (!callbackModalEl) return;
+            resetCallbackStatus();
+            prefill = prefill || {};
+            var sourcePageEl = document.getElementById('cb-source-page');
+            var sourceCaseEl = document.getElementById('cb-source-case');
+            if (sourcePageEl) {
+                if (prefill.sourcePage) {
+                    sourcePageEl.value = prefill.sourcePage;
+                } else {
+                    var scrollY = window.scrollY;
+                    var pageArea = '首页顶部';
+                    if (scrollY > 600) pageArea = '功能介绍区（智能导览/推荐/客服/分析）';
+                    if (document.getElementById('cases') && document.getElementById('cases').getBoundingClientRect().top < window.innerHeight) {
+                        pageArea = '客户案例列表页';
+                    }
+                    sourcePageEl.value = pageArea + ' | 入口：右下角浮动按钮';
+                }
+            }
+            if (sourceCaseEl && prefill.sourceCase) {
+                sourceCaseEl.value = prefill.sourceCase;
+            }
+            callbackModalEl.classList.add('callback-modal--visible');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeCallbackModal() {
+            if (!callbackModalEl) return;
+            callbackModalEl.classList.remove('callback-modal--visible');
+            document.body.style.overflow = '';
+            setTimeout(function () {
+                if (callbackForm) callbackForm.reset();
+                var firstRadio = document.querySelector('input[name="package"][value="基础版（智能导览+客服）"]');
+                if (firstRadio) firstRadio.checked = true;
+                resetCallbackStatus();
+            }, 250);
+        }
+
+        if (callbackFab) {
+            callbackFab.addEventListener('click', function () {
+                openCallbackModal({});
+            });
+        }
+        if (callbackModalClose) {
+            callbackModalClose.addEventListener('click', closeCallbackModal);
+        }
+        if (callbackModalEl) {
+            callbackModalEl.addEventListener('click', function (e) {
+                if (e.target.classList.contains('callback-modal__mask')) closeCallbackModal();
+            });
+        }
+
+        function collectFormData() {
+            var formData = new FormData(callbackForm);
+            var data = {};
+            formData.forEach(function (v, k) { data[k] = v; });
+            data.submitTime = new Date().toLocaleString('zh-CN', { hour12: false });
+            return data;
+        }
+
+        var pendingFormData = null;
+        function submitCallback() {
+            if (!cbQueuingEl || !cbSuccessEl || !cbErrorEl) return;
+            pendingFormData = collectFormData();
+            cbFormEl.style.display = 'none';
+            cbQueuingEl.style.display = 'block';
+            var queuePos = Math.floor(Math.random() * 4) + 2;
+            var queuePosEl = document.getElementById('queue-position');
+            if (queuePosEl) queuePosEl.textContent = queuePos;
+            var tick = 0;
+            var queueTimer = setInterval(function () {
+                tick++;
+                queuePos = Math.max(1, queuePos - 1);
+                if (queuePosEl) queuePosEl.textContent = queuePos;
+                if (tick >= 2) clearInterval(queueTimer);
+            }, 800);
+
+            setTimeout(function () {
+                clearInterval(queueTimer);
+                var isSuccess = Math.random() < 0.85;
+
+                if (isSuccess) {
+                    cbQueuingEl.style.display = 'none';
+                    cbSuccessEl.style.display = 'block';
+                    var advisor = ADVISORS[Math.floor(Math.random() * ADVISORS.length)];
+                    var advisorNameEl = document.getElementById('success-advisor');
+                    var advisorNameDisplay = document.getElementById('advisor-name-display');
+                    if (advisorNameEl) advisorNameEl.textContent = advisor.name;
+                    if (advisorNameDisplay) advisorNameDisplay.textContent = advisor.name + ' · ' + advisor.title;
+                    var advisorCard = cbSuccessEl.querySelector('.callback-status__advisor-card');
+                    if (advisorCard) {
+                        var avatarEl = advisorCard.querySelector('.advisor-avatar');
+                        var tipEl = advisorCard.querySelector('.advisor-tip');
+                        if (avatarEl) avatarEl.textContent = advisor.avatar;
+                        if (tipEl) tipEl.textContent = '擅长：' + advisor.skill;
+                    }
+                    pendingFormData.assignedAdvisor = advisor.name + '（' + advisor.title + '）';
+                    pendingFormData.status = '预约成功';
+                    console.log('%c=== 销售线索已提交（CRM模拟）===', 'color:#1976D2;font-weight:bold;font-size:14px;');
+                    console.table([pendingFormData]);
+                    showToast('预约成功！顾问将在30分钟内回电', 'success');
+                } else {
+                    cbQueuingEl.style.display = 'none';
+                    cbErrorEl.style.display = 'block';
+                    var errorReasons = ['当前咨询量过大，请稍后重试', '网络连接不稳定，请检查网络', '服务器维护中，请5分钟后再试'];
+                    var errDesc = document.getElementById('error-desc');
+                    if (errDesc) errDesc.textContent = errorReasons[Math.floor(Math.random() * errorReasons.length)];
+                    pendingFormData.status = '预约失败（待重试）';
+                    console.log('%c=== 预约失败（待用户重试）===', 'color:#E53935;font-weight:bold;font-size:14px;');
+                    console.table([pendingFormData]);
+                    showToast('提交失败，请重试或稍后再试', 'error');
+                }
+            }, 2500);
+        }
+
+        function retryCallback() {
+            if (cbErrorEl) cbErrorEl.style.display = 'none';
+            if (cbFormEl) cbFormEl.style.display = 'block';
+            showToast('已为您准备好重新提交', 'info');
+        }
+
+        if (callbackForm) {
+            callbackForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+                var phone = document.getElementById('cb-phone').value;
+                if (!/^1[3-9]\d{9}$/.test(phone)) {
+                    showToast('请输入正确的11位手机号码', 'warning');
+                    return;
+                }
+                submitCallback();
+            });
+        }
+
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') {
+                closeModal();
+                closeCallbackModal();
+            }
+        });
     </script>
 </body>
 </html>
